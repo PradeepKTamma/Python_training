@@ -1,0 +1,16 @@
+PN: "PC95EI14/5/5-Z"
+Core:
+  MFG: TDK
+  AL: 1.55  # Inductance factor
+  Le: 16.7  # Effective magnetic path length
+  Ae: 15    # Effective cross sectional area
+  C1: 1.11  # Core Factor
+Dim:
+  A: 14
+  B: 3.5
+  C: 5
+  D: 3
+  E: 11
+  F: 2
+  H: 1.5
+
