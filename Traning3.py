@@ -1,6 +1,17 @@
 import math
 import yaml
 import sys
+################################################################
+# This script calculates the total no of turns, total PCB width,
+# trace width, no of layes, and no of turns per layer based on the 
+# required inductor value, rated current value, and max. allowed 
+# temp raise.
+# SYNTAX
+# python Traning3.py "core.yml" "Spec.yml" "output.yml"
+# where "core.yml" is the ferrite core spec. "Spec.yml" is the 
+# required inductor specification and "output.yml" is the output 
+# file. This output file contains all the calucated values.
+##################################################################
 
 # Constant defs
 Jcu  = 3 # copper current density in natural convention.
@@ -14,18 +25,21 @@ kint = 0.024
 
 mil2mm = 0.0254
 
+#  initializing dictionary
+Ind_data = {'PCBWdith':'','Turns':'','Wtrace':'','TPL':'',"NL":''}
 
 n = len(sys.argv)
-if n == 3:
+if n == 4:
     print("Loading...!")
 else:
     print("Not enough arguments")
     exit()
 
 # input ferrite core spec file. It should be a ".yml" file.
-#Fname = input('Enter File name:')
-Fname = sys.argv[1]
-Sfile = sys.argv[2]
+
+Fname = sys.argv[1] # Core spec file
+Sfile = sys.argv[2] # Ind spec file
+Ofile = sys.argv[3] # Output file
 
 # Checking if the file is ".yml" file or not.
 for i in range(1,n):
@@ -45,6 +59,7 @@ with open(Sfile,"r") as g:
 
 # Max PCB width allowed for this core.
 PCBWidth = math.floor(data['Dim']['E']-0.3)
+Ind_data['PCBWdith'] = PCBWidth
 print("Max. PCB width [mm]:",PCBWidth)
 
 # No of turns calcualtion.
@@ -52,6 +67,7 @@ print("Max. PCB width [mm]:",PCBWidth)
 ind = data2['ind']
 ind = int(ind) # converting str to int
 Turns = round(math.sqrt(ind/data['Core']['AL']),0)
+Ind_data['Turns'] = Turns
 print("No of Turns:",Turns)
 
 # Trace width Calcualtion
@@ -63,14 +79,26 @@ Ttrace = data2['PCB']['Thick']
 Acon = (Iin/(kint*Trise**b))**(1/c)
 print("Conductor area [sq.mil]:",Acon)
 Wtrace = round((Acon/(1.378*Ttrace))*mil2mm,2)
+Ind_data['Wtrace'] = Wtrace
 print("PCB Trace thickness [mm]:",Wtrace)
 
 # No of layes Calcualtions
 Wwidth = (data['Dim']['E'] - data['Dim']['D'])/2
 Wwidth_eff = math.floor(Wwidth*0.5)
-TPL = round(Wwidth_eff/Wtrace,0) # TPL - turns per layer
-if TPL > Turns*0.5:
-    TPL = Turns*0.5
+TPL = Wwidth_eff/Wtrace # TPL - turns per layerclear
+if TPL < 1:
+    print("Core is too small")
+    exit()
+elif TPL > Turns*0.5:
+    TPL = round(Turns*0.5,0)
+else:
+    TPL = round(TPL,0)
+Ind_data['TPL'] = TPL
 print("No of Turns per layer:",TPL)
 NL = Turns/TPL # No of layers
+Ind_data['NL'] = NL
 print("No of layers:",NL)
+
+# Saving data in yaml file
+with open(Ofile, 'w') as h:
+    yaml.dump(Ind_data,h)
