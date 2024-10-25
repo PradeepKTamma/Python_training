@@ -1,6 +1,9 @@
 import math
 import yaml
 import sys
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+
 
 ################################################################
 # This script calculates the x and y coordinates for one turn based
@@ -83,3 +86,13 @@ Coord['ydata'] = crn_y
 
 
 print(Coord)
+print([crn_x[1], crn_y[1]], [crn_x[2], crn_y[2]])
+
+# plot shape
+fig, ax = plt.subplots()
+rect = Rectangle((-2.5, -1.5), 5, 3, facecolor='none', edgecolor='blue', linestyle='--', linewidth=2)
+ax.add_patch(rect)
+ax.plot(crn_x,crn_y, color='red', linestyle='-', linewidth=2)
+ax.set_title("Drawing Multiple Lines in Matplotlib - how2matplotlib.com")
+plt.show()
+
