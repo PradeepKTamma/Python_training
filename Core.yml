@@ -1,4 +1,5 @@
 PN: "PC95EI14/5/5-Z"
+# https://product.tdk.com/en/system/files/dam/doc/product/ferrite/ferrite/ferrite-core/catalog/ferrite_mz_sw_planar_en.pdf
 Core:
   MFG: TDK
   AL: 1.55  # Inductance factor
