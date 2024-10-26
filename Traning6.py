@@ -6,7 +6,7 @@ from matplotlib.patches import Rectangle
 
 
 ################################################################
-# This script calculates the x and y coordinates for one turn based
+# This script calculates the x and y coordinates for all turn based
 # on core specifications and inductor calculation from "Traning3.py"
 # SYNTAX
 # python Traning4.py "core.yml" "output.ymal" "Coord_data.yml"
@@ -65,28 +65,51 @@ print("Core Area[sq.mm]:", CoreArea)
 
 Coreperi = (data['Dim']['D']+data['Dim']['C'])*2
 print("Core Area[sq.mm]:", Coreperi)
-for i in range(5):
-    if i == 0:
-        crn_x.insert(0, 0 - (data['Dim']['C']*0.5 + B2T_margin))
-        crn_y.insert(0, 0 - (data['Dim']['D']*0.5 + B2T_margin))
-    elif i == 1:
-        crn_x.insert(i, data['Dim']['C'] + 2 * B2T_margin + crn_x[i-1])
-        crn_y.insert(i, crn_y[i-1])
-    elif i == 2:
-        crn_x.insert(i,crn_x[i-1])
-        crn_y.insert(i, crn_y[i-1] +data['Dim']['D'] + 2 * B2T_margin)
-    elif i == 3:
-        crn_x.insert(i,crn_x[i-1]- (data['Dim']['C'] + 2 * B2T_margin + T2T_margin))
-        crn_y.insert(i,crn_y[i-1])
-    elif i ==4:
-        crn_x.insert(i,crn_x[i-1])
-        crn_y.insert(i,crn_y[i-1] - (data['Dim']['D'] + 2 * B2T_margin + T2T_margin))
+k = 0
+TPL = int(data2['TPL'])
+for j in range(TPL):
+    for i in range(4):
+        
+        if j == 0:
+            if i == 0:
+                crn_x.insert(0, 0 - (data['Dim']['C']*0.5 + B2T_margin))
+                crn_y.insert(0, 0 - (data['Dim']['D']*0.5 + B2T_margin))
+            elif i == 1:
+                crn_x.insert(i, data['Dim']['C'] + 2 * B2T_margin + crn_x[i-1])
+                crn_y.insert(i, crn_y[i-1])
+            elif i == 2:
+                crn_x.insert(i,crn_x[i-1])
+                crn_y.insert(i, crn_y[i-1] +data['Dim']['D'] + 2 * B2T_margin)
+            elif i == 3:
+                crn_x.insert(i,crn_x[i-1]- (data['Dim']['C'] + 2 * B2T_margin + T2T_margin))
+                crn_y.insert(i,crn_y[i-1])
+        else:
+            if i == 0:
+                crn_x.insert(k, crn_x[k-1])
+                crn_y.insert(k, crn_y[k-1] - (data['Dim']['D'] + 2 * B2T_margin + (2*j-1) * T2T_margin))
+            elif i == 1:
+                crn_x.insert(k, data['Dim']['C'] + 2 * B2T_margin + crn_x[k-1]+ (2*j) * T2T_margin)
+                crn_y.insert(k, crn_y[k-1])
+            elif i == 2:
+                crn_x.insert(k,crn_x[k-1])
+                crn_y.insert(k, crn_y[k-1] +data['Dim']['D'] + 2 * B2T_margin+ (2*j) * T2T_margin)
+            elif i == 3:
+                crn_x.insert(k,crn_x[k-1]- (data['Dim']['C'] + 2 * B2T_margin + (2*j+1) * T2T_margin))
+                crn_y.insert(k,crn_y[k-1])
+        k = k+1
+        # print(j)
+        
+            
+# print(k)
+
+
+
 
 
 Coord['xdata'] = crn_x
 Coord['ydata'] = crn_y
 
-
+# print(crn_x)
 # print(Coord)
 # print([crn_x[1], crn_y[1]], [crn_x[2], crn_y[2]])
 
