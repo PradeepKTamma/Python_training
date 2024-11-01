@@ -8,6 +8,7 @@ import DraftGeomUtils
 crn_x=[]
 crn_y=[]
 crn_z=[]
+edge = []
 
 # input ferrite core spec file. It should be a ".yml" file.
 
@@ -24,14 +25,13 @@ vtx = np.stack((crn_x,crn_y,crn_z)).T
 # print((vtx[0]),(vtx[1]))
 # print((vtx[1]),(vtx[1]))
 
-apnt1 = App.Vector(vtx[0])
-apnt2 = App.Vector(vtx[1])
-edge1 = Part.makeLine(apnt1,apnt2)
-apnt3 = App.Vector(vtx[2])
-apnt4 = App.Vector(vtx[3])
-edge2 = Part.makeLine(apnt2,apnt3)
-wire1 = Part.Wire([edge1, edge2]) 
-S1 = Part.Shape([edge1,edge2])
+
+
+edge[1] = Part.makeLine(vtx[0],vtx[1])
+edge[2] = Part.makeLine(vtx[1],vtx[2])
+# wire1 = Part.Wire([edge1, edge2]) 
+wire1 = Part.Wire(edge)
+# S1 = Part.Shape([edge1,edge2])
 
 # W = Part.Wire(S1.Edges)
 # edge3 = Part.makeLine((10, 10, 0), (-2, 10, 0))
@@ -40,5 +40,7 @@ S1 = Part.Shape([edge1,edge2])
 # wire3 = Part.Wire([wire1, wire2])
 
 S2= DraftGeomUtils.filletWire(wire1, 0.5, chamfer=True)
-
+# 
 Part.show(S2)
+
+# print(edge)
