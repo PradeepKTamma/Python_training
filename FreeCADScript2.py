@@ -35,8 +35,8 @@ for i in range(2,len(crn_x)-1):
     edgea = Part.makeLine(App.Vector(vtx[i]),App.Vector(vtx[i+1]))
     wire.add(edgea)
 
+S2= DraftGeomUtils.filletWire(wire, 0.25, chamfer=True)
 
-
-Part.show(wire)
+Part.show(S2)
 
 # Finally done, need to check the distance between wires.
