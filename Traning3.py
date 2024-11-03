@@ -94,7 +94,7 @@ TPL = Wwidth_eff/Wtrace # TPL - turns per layer
 print(TPL)
 if Turns == 1:
     TPL = Turns
-else:
+elif Turns % 2 == 0:
     if TPL < 1:
         print("Core is too small")
         exit()
@@ -102,6 +102,8 @@ else:
         TPL = round(Turns*0.5,0)
     else:
         TPL = round(TPL,0)
+else:
+    TPL = (Turns-1)*0.5
 Ind_data['TPL'] = TPL
 print("No of Turns per layer:",TPL)
 NL = Turns/TPL # No of layers
