@@ -88,22 +88,27 @@ print("PCB Trace thickness [mm]:",Wtrace)
 
 # No of layes Calcualtions
 Wwidth = (data['Dim']['E'] - data['Dim']['D'])/2
-Wwidth_eff = math.floor(Wwidth*0.5)
-TPL = Wwidth_eff/Wtrace # TPL - turns per layerclear
-if TPL < 1:
-    print("Core is too small")
-    exit()
-elif TPL > Turns*0.5:
-    TPL = round(Turns*0.5,0)
+Wwidth_eff = math.floor(Wwidth)
+print('Winding window:',Wwidth_eff)
+TPL = Wwidth_eff/Wtrace # TPL - turns per layer
+print(TPL)
+if Turns == 1:
+    TPL = Turns
 else:
-    TPL = round(TPL,0)
+    if TPL < 1:
+        print("Core is too small")
+        exit()
+    elif TPL > Turns*0.5:
+        TPL = round(Turns*0.5,0)
+    else:
+        TPL = round(TPL,0)
 Ind_data['TPL'] = TPL
 print("No of Turns per layer:",TPL)
 NL = Turns/TPL # No of layers
 Ind_data['NL'] = NL
 print("No of layers:",NL)
 
-PCBLength = 2 * T2PCBEdga + (TPL - 1) * T2TSpace + data['Dim']['C']
+PCBLength = round(2 * T2PCBEdga + (TPL - 1) * T2TSpace + data['Dim']['C'] + TPL * Wtrace,0)
 print('PCB Length [mm]:', PCBLength)
 Ind_data['PCBLength'] = PCBLength
 
