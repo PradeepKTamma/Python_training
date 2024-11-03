@@ -20,8 +20,8 @@ from matplotlib.patches import Rectangle
 
 
 # constants
-B2T_margin = 0.3
-T2T_margin = 0.25
+# B2T_margin = 0.3
+# T2T_margin = 0.3
 
 # defs
 crn_x=[]
@@ -38,6 +38,8 @@ else:
 Fname = sys.argv[1] # Core spec file
 Sfile = sys.argv[2] # Ind spec file
 Ofile = sys.argv[3] # Ind spec file
+
+
 
 FF = sys.argv[1].split(".")
 if FF[1] == 'yml':
@@ -59,6 +61,9 @@ with open(Fname,"r") as f:
 
 with open(Sfile,"r") as g:
     data2=yaml.safe_load(g)
+
+B2T_margin = 0.3 + data2['Wtrace'] * 0.5
+T2T_margin = 0.3 + data2['Wtrace'] * 0.5
 
 CoreArea = data['Dim']['D']*data['Dim']['C']
 print("Core Area[sq.mm]:", CoreArea)
