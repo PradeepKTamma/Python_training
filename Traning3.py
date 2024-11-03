@@ -22,6 +22,8 @@ b = 0.44
 c = 0.725
 kext = 0.048
 kint = 0.024
+T2PCBEdga = 0.3
+T2TSpace = 0.3
 
 mil2mm = 0.0254
 
@@ -82,6 +84,8 @@ Wtrace = round((Acon/(1.378*Ttrace))*mil2mm,2)
 Ind_data['Wtrace'] = Wtrace
 print("PCB Trace thickness [mm]:",Wtrace)
 
+
+
 # No of layes Calcualtions
 Wwidth = (data['Dim']['E'] - data['Dim']['D'])/2
 Wwidth_eff = math.floor(Wwidth*0.5)
@@ -98,6 +102,10 @@ print("No of Turns per layer:",TPL)
 NL = Turns/TPL # No of layers
 Ind_data['NL'] = NL
 print("No of layers:",NL)
+
+PCBLength = 2 * T2PCBEdga + (TPL - 1) * T2TSpace + data['Dim']['C']
+print('PCB Length [mm]:', PCBLength)
+Ind_data['PCBLength'] = PCBLength
 
 # Saving data in yaml file
 with open(Ofile, 'w') as h:
