@@ -17,4 +17,4 @@ python Traning4.py "core.yml" "output.ymal" "Coord_data.yml" where "core.yml" is
 
 - add .gitignore file to ignore below file extension to be added to the git.
   - .FCBak
-  - **still to add**
+  - .FCStd
