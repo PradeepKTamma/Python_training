@@ -14,8 +14,6 @@ from matplotlib.patches import Rectangle
 # "output.yml" is the output file from Traning3,py
 # "Coord_data.yml" is the co ordinate of conors of the coil.
 #
-# TO DO LIST
-# write the co ordicates to yaml file.
 ##################################################################
 
 
