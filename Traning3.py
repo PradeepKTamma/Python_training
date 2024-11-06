@@ -89,9 +89,10 @@ print("PCB Trace thickness [mm]:",Wtrace)
 # No of layes Calcualtions
 Wwidth = (data['Dim']['E'] - data['Dim']['D'])/2
 Wwidth_eff = math.floor(Wwidth)
-print('Winding window:',Wwidth_eff)
+print('Winding window rounded:',Wwidth_eff)
+print('Winding window:',Wwidth)
 TPL = Wwidth_eff/Wtrace # TPL - turns per layer
-print(TPL)
+# print(TPL)
 if Turns == 1:
     TPL = Turns
 elif Turns % 2 == 0:

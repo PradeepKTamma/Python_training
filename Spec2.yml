@@ -1,5 +1,6 @@
-ind: 450
-Iin: 0.5
+ind: 100
+Iin: 2
+Pp: 2
 PCB:
   Thick: 1 # Oz/sq.ft
   Trise: 40 # Deg. C

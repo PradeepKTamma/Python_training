@@ -9,7 +9,7 @@ from matplotlib.patches import Rectangle
 # This script calculates the x and y coordinates for all turn based
 # on core specifications and inductor calculation from "Traning3.py"
 # SYNTAX
-# python Traning4.py "core.yml" "output.ymal" "Coord_data.yml"
+# python Traning6.py "core.yml" "output.ymal" "Coord_data.yml"
 # where "core.yml" is the ferrite core specification file and 
 # "output.yml" is the output file from Traning3,py
 # "Coord_data.yml" is the co ordinate of conors of the coil.

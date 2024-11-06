@@ -13,7 +13,7 @@ edge = []
 
 # input ferrite core spec file. It should be a ".yml" file.
 
-Fname = '/Users/divyapalle/Documents/Python_training/Python_training/Cdata.yml' # Core spec file
+Fname = '/home/pradeep/Work/PEEM/Python_training/Cdata.yml' # Core spec file
 
 with open(Fname,"r") as f:
     data=yaml.safe_load(f)
