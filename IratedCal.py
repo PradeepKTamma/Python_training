@@ -49,7 +49,7 @@ I = round(kint * dT**b *(W * H)**c,2) * data['Pp']
 
 print('Rated Current [A]:', I)
 
-Temp = 25 # Resistace at this temp.
+Temp = 125 # Resistace at this temp.
 
 MPL = data2['MPL']
 
